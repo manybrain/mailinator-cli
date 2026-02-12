@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Wrapper script for mailinator-cli local development
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+node "$SCRIPT_DIR/bin/index.js" "$@"
