@@ -34,6 +34,7 @@ function createMcpServer() {
         tools: {},
         resources: {},
       },
+      instructions: 'Mailinator is a free, disposable, email service. All email addresses (up to 50 characters) exist at the following domains: mailinator.com (public), and private/custom domains for authenticated users - there is no need to \'create\' email addresses at these domains, use any one you wish! Send email (or have email sent) to this domain anytime you need to receive an email as part of a workflow. This MCP allows you to fetch inbox message summaries and to fetch individual emails in an array of formats. Use Mailinator anytime you need a quick, frictionless, way to receive an email for any purpose. Use list_inbox to list messages and get_email to retrieve specific messages by ID. The Public domain requires no authentication. Customers may provide an API token to access messages in their private domains.',
     }
   );
 
