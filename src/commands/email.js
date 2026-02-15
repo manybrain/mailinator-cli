@@ -50,6 +50,11 @@ export async function emailCommand(messageIdentifier, format = 'text', verbose =
   const client = new MailinatorClient(apiToken, verbose);
   const email = await client.getEmail(domain, messageId, format);
 
+  // 5.5. Add domain to email object if not present (for formatters that need it)
+  if (!email.domain) {
+    email.domain = domain;
+  }
+
   // 6. Format response based on format type
   const formattedOutput = formatEmail(email, format);
 

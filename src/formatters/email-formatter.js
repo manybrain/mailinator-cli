@@ -128,15 +128,25 @@ function formatHeaders(email) {
 function formatSmtpLog(email) {
   let output = chalk.bold.blue('\nSMTP Log\n\n');
 
-  if (email.smtplog && Array.isArray(email.smtplog)) {
-    email.smtplog.forEach((entry, index) => {
-      const timestamp = entry.timestamp ? new Date(entry.timestamp).toISOString() : 'unknown';
-      const event = entry.event || 'unknown';
-      const details = entry.details || '';
+  // Check for SMTP log in different possible locations
+  let logEntries = null;
+  if (email.smtplog && Array.isArray(email.smtplog.log)) {
+    logEntries = email.smtplog.log;
+  } else if (email.log && Array.isArray(email.log)) {
+    logEntries = email.log;
+  } else if (email.smtplog && Array.isArray(email.smtplog)) {
+    logEntries = email.smtplog;
+  }
 
-      output += chalk.dim(`[${timestamp}] `) +
+  if (logEntries && logEntries.length > 0) {
+    logEntries.forEach((entry, index) => {
+      const time = entry.time || '0';
+      const event = entry.event || 'unknown';
+      const logMessage = entry.log || '';
+
+      output += chalk.dim(`[${time}ms] `) +
                 chalk.green(event) +
-                (details ? ` - ${details}` : '') +
+                (logMessage ? ` - ${logMessage}` : '') +
                 '\n';
     });
   } else {
@@ -159,7 +169,7 @@ function formatLinks(email, fullDetails) {
   if (fullDetails) {
     const table = new Table({
       head: [chalk.bold('#'), chalk.bold('Link Text'), chalk.bold('URL')],
-      colWidths: [5, 40, 55],
+      colWidths: [5, 35, 80],
       wordWrap: true,
       style: {
         head: [],
@@ -221,14 +231,39 @@ function extractTextContent(email) {
  */
 function extractLinks(email) {
   const links = [];
+
+  // First check if the API provides structured links data
+  if (email.links && Array.isArray(email.links)) {
+    email.links.forEach(link => {
+      links.push({
+        url: link.url || link.href || '',
+        text: link.text || link.title || ''
+      });
+    });
+    return links;
+  }
+
+  // Pattern for HTML anchor tags
+  const anchorPattern = /<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1[^>]*?>(.*?)<\/a>/gi;
+  // Pattern for plain URLs
   const urlPattern = /(https?:\/\/[^\s<>"]+)/g;
 
   // Extract from parts
   if (email.parts) {
     email.parts.forEach(part => {
       if (part.body) {
-        const matches = part.body.matchAll(urlPattern);
-        for (const match of matches) {
+        // Try to extract from anchor tags first
+        const anchorMatches = part.body.matchAll(anchorPattern);
+        for (const match of anchorMatches) {
+          const url = match[2];
+          const text = match[3].replace(/<[^>]+>/g, '').trim(); // Strip HTML tags from text
+          links.push({ url, text });
+        }
+
+        // Also extract plain URLs not in anchor tags
+        const plainText = part.body.replace(/<a[^>]*>.*?<\/a>/gi, ''); // Remove anchors
+        const urlMatches = plainText.matchAll(urlPattern);
+        for (const match of urlMatches) {
           links.push({ url: match[1], text: '' });
         }
       }
@@ -237,8 +272,18 @@ function extractLinks(email) {
 
   // Extract from body
   if (email.body) {
-    const matches = email.body.matchAll(urlPattern);
-    for (const match of matches) {
+    // Try to extract from anchor tags first
+    const anchorMatches = email.body.matchAll(anchorPattern);
+    for (const match of anchorMatches) {
+      const url = match[2];
+      const text = match[3].replace(/<[^>]+>/g, '').trim(); // Strip HTML tags from text
+      links.push({ url, text });
+    }
+
+    // Also extract plain URLs not in anchor tags
+    const plainText = email.body.replace(/<a[^>]*>.*?<\/a>/gi, ''); // Remove anchors
+    const urlMatches = plainText.matchAll(urlPattern);
+    for (const match of urlMatches) {
       links.push({ url: match[1], text: '' });
     }
   }
