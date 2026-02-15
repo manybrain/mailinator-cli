@@ -12,9 +12,14 @@ import { get as cacheGet } from '../cache/inbox-cache.js';
  * Execute email command
  * @param {string} messageIdentifier - Message ID or listing number
  * @param {string} format - Email format (default: 'text')
- * @param {boolean} verbose - Enable verbose output
+ * @param {Object} options - Command options
+ * @param {boolean} options.verbose - Enable verbose output
+ * @param {boolean} options.returnJSON - Return JSON instead of printing (for MCP mode)
+ * @param {string} options.domain - Override domain (for MCP mode)
  */
-export async function emailCommand(messageIdentifier, format = 'text', verbose = false) {
+export async function emailCommand(messageIdentifier, format = 'text', options = {}) {
+  const { verbose = false, returnJSON = false, domain: domainOverride } = options;
+
   // 1. Validate format
   validateFormat(format);
 
@@ -29,17 +34,24 @@ export async function emailCommand(messageIdentifier, format = 'text', verbose =
     const listingNumber = parseInt(messageIdentifier, 10);
     const cachedMessage = cacheGet(listingNumber);
     messageId = cachedMessage.id;
-    domain = cachedMessage.domain;
+    domain = domainOverride || cachedMessage.domain;
   } else {
-    // Message ID provided directly - need to get domain from cache or fail
+    // Message ID provided directly
     messageId = messageIdentifier;
-    const { apiToken } = loadConfig();
-    domain = apiToken ? 'private' : 'public';
 
-    // Try to get domain from cache if available
-    const cachedDomain = await import('../cache/inbox-cache.js').then(m => m.getDomain());
-    if (cachedDomain) {
-      domain = cachedDomain;
+    if (domainOverride) {
+      // Use domain override from MCP call
+      domain = domainOverride;
+    } else {
+      // Need to get domain from cache or config
+      const { apiToken } = loadConfig();
+      domain = apiToken ? 'private' : 'public';
+
+      // Try to get domain from cache if available
+      const cachedDomain = await import('../cache/inbox-cache.js').then(m => m.getDomain());
+      if (cachedDomain) {
+        domain = cachedDomain;
+      }
     }
   }
 
@@ -55,9 +67,17 @@ export async function emailCommand(messageIdentifier, format = 'text', verbose =
     email.domain = domain;
   }
 
-  // 6. Format response based on format type
-  const formattedOutput = formatEmail(email, format);
+  // 6. Return JSON or display formatted output based on mode
+  if (returnJSON) {
+    return {
+      message_id: messageId,
+      domain,
+      format,
+      ...email,
+    };
+  }
 
-  // 7. Display formatted output
+  // 7. Format and display output (CLI mode)
+  const formattedOutput = formatEmail(email, format);
   console.log(formattedOutput);
 }

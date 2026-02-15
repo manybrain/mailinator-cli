@@ -22,5 +22,13 @@ export function getInboxUrl(domain, inboxName) {
  * @returns {string} Full API URL
  */
 export function getEmailUrl(domain, messageId, format = 'text') {
-  return `${BASE_URL}/domains/${domain}/messages/${messageId}?format=${format}`;
+  const baseUrl = `${BASE_URL}/domains/${domain}/messages/${messageId}`;
+
+  // smtplog is a separate endpoint path, not a format parameter
+  if (format === 'smtplog') {
+    return `${baseUrl}/smtplog`;
+  }
+
+  // Other formats use the format query parameter
+  return `${baseUrl}?format=${format}`;
 }

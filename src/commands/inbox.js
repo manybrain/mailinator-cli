@@ -16,9 +16,13 @@ import { set as cacheSet } from '../cache/inbox-cache.js';
  * Execute inbox command
  * @param {string} inboxName - Inbox name to query
  * @param {string|undefined} domain - Optional domain (defaults based on token)
- * @param {boolean} verbose - Enable verbose output
+ * @param {Object} options - Command options
+ * @param {boolean} options.verbose - Enable verbose output
+ * @param {boolean} options.returnJSON - Return JSON instead of printing (for MCP mode)
  */
-export async function inboxCommand(inboxName, domain, verbose = false) {
+export async function inboxCommand(inboxName, domain, options = {}) {
+  const { verbose = false, returnJSON = false } = options;
+
   // 1. Validate inbox name
   validateInboxName(inboxName);
 
@@ -44,14 +48,29 @@ export async function inboxCommand(inboxName, domain, verbose = false) {
   // 6. Extract messages from response
   const messages = response.msgs || response.messages || [];
 
-  // 7. Format response as numbered table
-  const formattedOutput = formatInboxTable(messages, inboxName, resolvedDomain);
-
-  // 8. Cache messages for email command
+  // 7. Cache messages for email command
   if (messages.length > 0) {
     cacheSet(resolvedDomain, inboxName, messages);
   }
 
-  // 9. Display table
+  // 8. Return JSON or display table based on mode
+  if (returnJSON) {
+    return {
+      inbox_name: inboxName,
+      domain: resolvedDomain,
+      messages: messages.map((msg, index) => ({
+        number: index + 1,
+        id: msg.id,
+        from: msg.from,
+        subject: msg.subject,
+        time: msg.time,
+        seconds_ago: msg.seconds_ago,
+      })),
+      count: messages.length,
+    };
+  }
+
+  // 9. Format and display table (CLI mode)
+  const formattedOutput = formatInboxTable(messages, inboxName, resolvedDomain);
   console.log(formattedOutput);
 }

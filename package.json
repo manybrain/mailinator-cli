@@ -23,11 +23,14 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "commander": "^12.0.0",
+    "@modelcontextprotocol/sdk": "^1.26.0",
     "axios": "^1.6.7",
-    "cli-table3": "^0.6.3",
     "chalk": "^5.3.0",
+    "cli-table3": "^0.6.3",
+    "commander": "^12.0.0",
     "conf": "^12.0.0",
-    "date-fns": "^3.3.1"
+    "date-fns": "^3.3.1",
+    "express": "^5.2.1",
+    "zod": "^4.3.6"
   }
 }
