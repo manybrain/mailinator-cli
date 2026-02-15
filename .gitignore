@@ -142,6 +142,8 @@ vite.config.ts.timestamp-*
 # Sidecar files
 .sidecar/
 
+.claude
+
 # IDE
 .vscode/
 .idea/
