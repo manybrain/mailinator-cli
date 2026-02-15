@@ -1,7 +1,7 @@
 {
   "name": "mailinator-cli",
   "version": "1.0.0",
-  "description": "CLI tool to interact with Mailinator disposable email service",
+  "description": "CLI tool and MCP server to interact with Mailinator disposable email service",
   "type": "module",
   "main": "bin/index.js",
   "bin": {

@@ -1,10 +1,24 @@
 * Background
 
-Mailinator is a disposable, receive-only email system.  All email addresses @mailinator.com are public and already exist (up to 50 characters).  There is no concept of “creating” an email address at Mailinator, simply choose one and send email to <your_choice>@mailinator.com
+Mailinator is a disposable, receive-only email system.  All email addresses @mailinator.com are public and already exist (up to 50 characters).  There is no concept of "creating" an email address at Mailinator, simply choose one and send email to <your_choice>@mailinator.com
 
 If a user has an API token, they may specify their private domains and use those. Again, they may then use any email address @their_private_domain.com.
 
-Currently, Emails may be retrieved via the website or the API.  
+Currently, Emails may be retrieved via the website or the API.
+
+* MCP Server Mode
+
+In addition to CLI functionality, this tool also operates as an MCP (Model Context Protocol) server, allowing AI assistants like Claude Desktop to interact with Mailinator programmatically.
+
+MCP Server Features:
+- Dual interface: Exposes functionality as both Tools (actions) and Resources (data URIs)
+- Tools: list_inbox and get_email for active email operations
+- Resources: mailinator:// URIs for passive context access
+- HTTP-based server using Streamable HTTP transport
+- Configurable host/port (default: 127.0.0.1:8080)
+- Same authentication and domain support as CLI
+
+The server is started with: mailinator-cli --start-mcp-server [--host=HOST] [--port=PORT]
 
 * LLM Prompt for CLI Scaffolding
 
