@@ -6,7 +6,7 @@
   "main": "bin/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manybrain/mailinator-cli"
+    "url": "git+https://github.com/manybrain/mailinator-cli.git"
   },
   "bin": {
     "mailinator-cli": "bin/index.js"
