@@ -195,7 +195,7 @@ mailinator-cli -v email 1 full
 
 Public domain (@mailinator.com) requires no authentication. For private/custom domains and advanced features (wildcards, SMTP logs), configure an API token:
 
-**Get Token:** https://www.mailinator.com/v4/index.jsp
+**Get Token:** https://www.mailinator.com/v4/private/team_settings.jsp
 
 **Configuration Options:**
 
@@ -273,7 +273,7 @@ Uses Mailinator CLI API v3:
 
 - **CLI Issues:** Open issue in repository
 - **Mailinator API:** https://www.mailinator.com/support
-- **API Documentation:** https://www.mailinator.com/v4/documentation/
+- **API Documentation:** https://www.mailinator.com/documentation/docs/category/getting-started/index.html
 
 ## Links
 

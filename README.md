@@ -49,7 +49,7 @@ npm link
 
 Mailinator allows public access to the "public" domain without authentication. To access private domains or use advanced features (SMTP logs, wildcards, etc.), you'll need an API token.
 
-Get your API token from: [Mailinator API Settings](https://www.mailinator.com/v4/private/index.jsp)
+Get your API token from: [Mailinator API Settings](https://www.mailinator.com/v4/private/team_settings.jsp)
 
 #### Option 1: Environment Variable
 
@@ -62,6 +62,8 @@ Or create a `.env` file:
 ```bash
 MAILINATOR_API_KEY=your_api_token_here
 ```
+
+When running `mailinator-cli`, `.env` is automatically loaded from your current working directory.
 
 #### Option 2: Config File
 
@@ -498,4 +500,4 @@ For CLI tool issues, please open an issue in the repository.
 ## Related Links
 
 - [Mailinator](https://www.mailinator.com/) - Email Testing service
-- [Mailinator API Documentation](https://www.mailinator.com/v4/documentation/)
+- [Mailinator API Documentation](https://www.mailinator.com/documentation/docs/category/getting-started/index.html)
