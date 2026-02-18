@@ -107,7 +107,7 @@ mailinator-cli [options] inbox <inbox_name> [domain]
 ```
 
 **Arguments:**
-- `inbox_name` (required): The inbox/email username to query
+- `inbox_name` (required): The inbox/email to query
 - `domain` (optional): Domain to use. Defaults to:
   - `"private"` if API token is configured
   - `"public"` if no API token
