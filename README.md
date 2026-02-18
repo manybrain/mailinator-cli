@@ -49,7 +49,7 @@ npm link
 
 Mailinator allows public access to the "public" domain without authentication. To access private domains or use advanced features (SMTP logs, wildcards, etc.), you'll need an API token.
 
-Get your API token from: [Mailinator API Settings](https://www.mailinator.com/v4/index.jsp)
+Get your API token from: [Mailinator API Settings](https://www.mailinator.com/v4/private/index.jsp)
 
 #### Option 1: Environment Variable
 
@@ -497,7 +497,5 @@ For CLI tool issues, please open an issue in the repository.
 
 ## Related Links
 
-- [Mailinator](https://www.mailinator.com/) - Disposable email service
-- [Mailinator API Documentation](https://www.mailinator.com/v4/docs/)
-- [Model Context Protocol](https://modelcontextprotocol.io/) - MCP specification
-- [Claude Desktop](https://claude.ai/download) - AI assistant with MCP support
+- [Mailinator](https://www.mailinator.com/) - Email Testing service
+- [Mailinator API Documentation](https://www.mailinator.com/v4/documentation/)
