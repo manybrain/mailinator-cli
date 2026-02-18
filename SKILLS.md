@@ -4,10 +4,10 @@
 
 A Node.js tool providing both command-line and AI-integrated access to Mailinator's disposable email service. Enables automated email testing, workflow verification, and email content extraction through CLI commands or via the Model Context Protocol (MCP) for AI assistants.
 
-**Service Type:** Email Testing & Automation
-**Protocol Support:** CLI, MCP (Model Context Protocol)
-**License:** MIT
-**Repository:** https://github.com/[your-repo]/mailinator-cli
+- **Service Type:** Email Testing & Automation
+- **Protocol Support:** CLI, MCP (Model Context Protocol)
+- **License:** MIT
+- **Repository:** https://github.com/manybrain/mailinator-cli
 
 ## What is Mailinator?
 
@@ -273,7 +273,7 @@ Uses Mailinator CLI API v3:
 
 - **CLI Issues:** Open issue in repository
 - **Mailinator API:** https://www.mailinator.com/support
-- **API Documentation:** https://www.mailinator.com/v4/docs/
+- **API Documentation:** https://www.mailinator.com/v4/documentation/
 
 ## Links
 
