@@ -48,7 +48,7 @@ function createMcpServer() {
           .string()
           .min(1)
           .max(50)
-          .describe('Inbox name to query (max 50 characters, alphanumeric with dots). Can use * for all inboxes or prefix* for wildcard search in private domain with API token.'),
+          .describe('Inbox name to query (max 50 characters; letters, numbers, dots, and hyphens). Can use * for all inboxes or prefix* for wildcard search in private domain with API token.'),
         domain: z
           .string()
           .optional()

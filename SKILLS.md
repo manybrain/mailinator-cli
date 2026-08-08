@@ -43,7 +43,7 @@ This server exposes two tools for active operations:
 Lists all emails in a Mailinator inbox.
 
 **Parameters:**
-- `inbox_name` (required): Inbox to query (max 50 chars, alphanumeric with dots)
+- `inbox_name` (required): Inbox to query (max 50 chars; letters, numbers, dots, and hyphens)
   - Supports wildcards: `*` (all inboxes) or `prefix*` (pattern match) with API token
 - `domain` (optional): "public", "private", or custom domain (auto-detected if omitted)
 
@@ -236,7 +236,7 @@ When configured as an MCP server in Claude Desktop:
 
 ## Validation Rules
 
-- **Inbox Names:** Max 50 chars, alphanumeric + dots, no leading/trailing dots
+- **Inbox Names:** Max 50 chars; letters, numbers, dots, and hyphens; must begin and end with a letter or number
 - **Wildcards:** Only `*` or `prefix*`, only in private domains, requires API token
 - **Domains:** "public", "private", or valid custom domain names
 

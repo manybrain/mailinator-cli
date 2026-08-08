@@ -4,7 +4,7 @@
 
 import { ValidationError } from '../utils/errors.js';
 
-const INBOX_NAME_PATTERN = /^[a-zA-Z0-9]([a-zA-Z0-9.]*[a-zA-Z0-9])?$/;
+const INBOX_NAME_PATTERN = /^[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?$/;
 const MAX_INBOX_LENGTH = 50;
 
 const VALID_FORMATS = [
@@ -38,7 +38,7 @@ export function validateInboxName(inboxName) {
 
   if (!INBOX_NAME_PATTERN.test(inboxName)) {
     throw new ValidationError(
-      'Inbox name must be alphanumeric with optional dots (not at the beginning or end).'
+      'Inbox name may contain letters, numbers, dots, and hyphens, and must begin and end with a letter or number.'
     );
   }
 }
