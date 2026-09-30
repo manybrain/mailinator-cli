@@ -4,6 +4,7 @@
  */
 
 import express from 'express';
+import { createRequire } from 'node:module';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { z } from 'zod';
@@ -16,8 +17,10 @@ import { executeGetEmail, EMAIL_FORMATS } from './tools/get-email-tool.js';
 import { readInboxResource } from './resources/inbox-resource.js';
 import { readEmailResource } from './resources/email-resource.js';
 
+const requireFromHere = createRequire(import.meta.url);
+const { version: packageVersion } = requireFromHere('../../package.json');
+
 const SERVER_NAME = 'mailinator-mcp-server';
-const SERVER_VERSION = '1.0.0';
 
 /**
  * Create and configure MCP server
@@ -27,7 +30,7 @@ function createMcpServer() {
   const server = new McpServer(
     {
       name: SERVER_NAME,
-      version: SERVER_VERSION,
+      version: packageVersion,
     },
     {
       capabilities: {
