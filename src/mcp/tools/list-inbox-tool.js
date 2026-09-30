@@ -12,8 +12,8 @@ export const listInboxSchema = z.object({
     .string()
     .min(1)
     .max(50)
-    .regex(/^[a-zA-Z0-9*]([a-zA-Z0-9.*]*[a-zA-Z0-9*])?$/,
-      'Inbox name must be alphanumeric with optional dots and wildcards'),
+    .regex(/^[a-zA-Z0-9*](?:[a-zA-Z0-9.*-]*[a-zA-Z0-9*])?$/,
+      'Inbox name may contain letters, numbers, dots, hyphens, and wildcards'),
   domain: z
     .string()
     .optional()
@@ -29,7 +29,7 @@ export const listInboxTool = {
     properties: {
       inbox_name: {
         type: 'string',
-        description: 'Inbox name to query (max 50 characters, alphanumeric with dots). Can use * for all inboxes or prefix* for wildcard search in private domain with API token.',
+        description: 'Inbox name to query (max 50 characters; letters, numbers, dots, and hyphens). Can use * for all inboxes or prefix* for wildcard search in private domain with API token.',
       },
       domain: {
         type: 'string',

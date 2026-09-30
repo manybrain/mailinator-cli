@@ -11,7 +11,7 @@ const BASE_URL = 'https://api.mailinator.com/cli/v3';
  * @returns {string} Full API URL
  */
 export function getInboxUrl(domain, inboxName) {
-  return `${BASE_URL}/domains/${domain}/inboxes/${inboxName}`;
+  return `${BASE_URL}/domains/${encodeURIComponent(domain)}/inboxes/${encodeURIComponent(inboxName)}`;
 }
 
 /**
@@ -22,7 +22,7 @@ export function getInboxUrl(domain, inboxName) {
  * @returns {string} Full API URL
  */
 export function getEmailUrl(domain, messageId, format = 'text') {
-  const baseUrl = `${BASE_URL}/domains/${domain}/messages/${messageId}`;
+  const baseUrl = `${BASE_URL}/domains/${encodeURIComponent(domain)}/messages/${encodeURIComponent(messageId)}`;
 
   // smtplog is a separate endpoint path, not a format parameter
   if (format === 'smtplog') {
@@ -30,5 +30,5 @@ export function getEmailUrl(domain, messageId, format = 'text') {
   }
 
   // Other formats use the format query parameter
-  return `${baseUrl}?format=${format}`;
+  return `${baseUrl}?format=${encodeURIComponent(format)}`;
 }
