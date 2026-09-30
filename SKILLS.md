@@ -230,7 +230,7 @@ When configured as an MCP server in Claude Desktop:
 
 ## Requirements
 
-- **Runtime:** Node.js ≥ 18.0.0
+- **Runtime:** Node.js ≥ 18.14.1
 - **Internet Access:** Required for Mailinator API
 - **API Token:** Optional (required for private domains and wildcards)
 

@@ -430,7 +430,7 @@ mailinator-cli --start-mcp-server
 
 ## Requirements
 
-- Node.js >= 18.0.0
+- Node.js >= 18.14.1
 - Internet connection (to access Mailinator API)
 
 ## API Endpoints

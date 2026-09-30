@@ -5,6 +5,7 @@
  */
 
 import 'dotenv/config';
+import { createRequire } from 'node:module';
 import { Command } from 'commander';
 import chalk from 'chalk';
 import { inboxCommand } from '../src/commands/inbox.js';
@@ -17,13 +18,16 @@ import {
   CacheError,
 } from '../src/utils/errors.js';
 
+const requireFromHere = createRequire(import.meta.url);
+const { version: packageVersion } = requireFromHere('../package.json');
+
 const program = new Command();
 
 // Program metadata
 program
   .name('mailinator-cli')
   .description('CLI tool to interact with Mailinator disposable email service')
-  .version('1.0.0')
+  .version(packageVersion)
   .option('-v, --verbose', 'Show detailed HTTP request/response information')
   .option('--start-mcp-server', 'Start MCP server instead of CLI mode')
   .option('--host <address>', 'MCP server host address (only with --start-mcp-server)', '127.0.0.1')
@@ -67,7 +71,7 @@ if (globalOptions.startMcpServer) {
   cliProgram
     .name('mailinator-cli')
     .description('CLI tool to interact with Mailinator disposable email service')
-    .version('1.0.0')
+    .version(packageVersion)
     .option('-v, --verbose', 'Show detailed HTTP request/response information')
     .option('--start-mcp-server', 'Start MCP server instead of CLI mode')
     .option('--host <address>', 'MCP server host address (only with --start-mcp-server)', '127.0.0.1')
