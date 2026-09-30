@@ -339,9 +339,9 @@ The cache persists across CLI invocations until you run the `inbox` command agai
 
 ### Inbox Names
 - Maximum 50 characters
-- Alphanumeric characters and dots (`.`)
-- Cannot start or end with a dot
-- Pattern: `[a-zA-Z0-9]([a-zA-Z0-9.]*[a-zA-Z0-9])?`
+- Letters, numbers, dots (`.`), and hyphens (`-`)
+- Must begin and end with a letter or number
+- Pattern: `[a-zA-Z0-9](?:[a-zA-Z0-9.-]*[a-zA-Z0-9])?`
 
 ### Wildcards
 - Requires API token
